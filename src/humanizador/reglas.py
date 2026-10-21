@@ -105,6 +105,10 @@ def cargar_perfil(nombre_o_ruta):
         base = cargar_perfil(datos["hereda"])
         for seccion in ("severidad", "umbrales"):
             base[seccion] = {**base.get(seccion, {}), **datos.get(seccion, {})}
+        # las señales y su calibración se reemplazan enteras: vienen de un corpus distinto en cada perfil
+        for seccion in ("senales", "calibracion"):
+            if seccion in datos:
+                base[seccion] = datos[seccion]
         base["nombre"] = ruta.stem if ruta.suffix == ".toml" else nombre_o_ruta
         base["descripcion"] = datos.get("descripcion", base.get("descripcion", ""))
         return base
@@ -250,32 +254,44 @@ def revisar(bloques, perfil="academico"):
 
     orden = {"dura": 0, "blanda": 1}
     hallazgos.sort(key=lambda h: (orden[h.severidad], list(DESCRIPCION).index(h.regla)))
-    return Resultado(P["nombre"], metricas, hallazgos, senales_calibradas(metricas))
+    return Resultado(P["nombre"], metricas, hallazgos, senales_calibradas(metricas, P),
+                     len(P.get("senales", {})), P.get("calibracion", {}))
 
 
-# Las ocho métricas que separaron humano de IA en la calibración, con su umbral del perfil académico.
-# Se cuentan siempre con esos umbrales, sea cual sea el perfil elegido, porque son los que se midieron.
-SENALES = {
-    "citas_x1000": ("<", "citas_minimas", "Sin citas (Autor, año)"),
-    "nombres_propios_x1000": ("<", "nombres_minimos", "Pocos nombres propios"),
-    "rayas_x1000": (">", "rayas", "Rayas"),
-    "cv_largo_frase": ("<", "cv_frase_minimo", "Frases de largo parejo"),
-    "tricolon_x1000": (">", "tricolon", "Enumeraciones de tres"),
-    "lexico_ia_x1000": (">", "lexico_ia", "Léxico de IA"),
-    "dos_puntos_x1000": (">", "dos_puntos", "Dos puntos"),
-    "punto_y_coma_x1000": (">", "punto_y_coma", "Punto y coma"),
+NOMBRE_SENAL = {
+    "citas_x1000": "Sin citas (Autor, año)",
+    "nombres_propios_x1000": "Pocos nombres propios",
+    "rayas_x1000": "Rayas",
+    "cv_largo_frase": "Frases de largo parejo",
+    "tricolon_x1000": "Enumeraciones de tres",
+    "lexico_ia_x1000": "Léxico de IA",
+    "dos_puntos_x1000": "Dos puntos",
+    "punto_y_coma_x1000": "Punto y coma",
+    "contraste_x1000": "Molde 'no es X, es Y'",
+    "conectores_x1000": "Conectores de manual",
+    "moraleja_x1000": "Moraleja explícita",
+    "frases_largas_x1000": "Frases largas",
+    "largo_medio_frase": "Frases cortas",
+    "emojis_x1000": "Emojis",
 }
 
 
-def senales_calibradas(metricas):
-    U = cargar_perfil("academico")["umbrales"]
+def senales_calibradas(metricas, perfil):
+    """Las señales que la calibración del perfil mostró que separan humano de IA, y cuáles se activan.
+
+    Los umbrales salen de la tabla [senales] del perfil, medidos sobre un corpus humano y uno de IA.
+    """
+    pal = metricas.get("palabras") or 1
     activas = []
-    for clave, (op, umbral, nombre) in SENALES.items():
-        if clave not in metricas:
+    for clave, (op, u) in perfil.get("senales", {}).items():
+        if clave.endswith("_x1000") and clave not in metricas and f"{clave[:-6]}_n" in metricas:
+            v = metricas[f"{clave[:-6]}_n"] * 1000 / pal
+        elif clave in metricas:
+            v = metricas[clave]
+        else:
             continue
-        v, u = metricas[clave], U[umbral]
         if (v < u) if op == "<" else (v > u):
-            activas.append(nombre)
+            activas.append(NOMBRE_SENAL.get(clave, clave))
     return activas
 
 
@@ -285,6 +301,8 @@ class Resultado:
     metricas: dict
     hallazgos: list
     senales: list = field(default_factory=list)
+    n_senales: int = 0
+    calibracion: dict = field(default_factory=dict)
 
     @property
     def duras(self):

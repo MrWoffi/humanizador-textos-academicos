@@ -1,19 +1,41 @@
-# Perfil para redes y textos comerciales: posts, carruseles, guiones de reel, correos, propuestas.
-descripcion = "Redes y textos comerciales: posts, guiones de reel, correos"
+# Perfil para redes y textos de divulgación: posts, artículos de blog, guiones de reel, correos, propuestas.
+descripcion = "Redes y divulgación: posts, blog, guiones de reel, correos"
 hereda = "academico"
 
+# Calibrado con 250 posts de Global Voices escritos originalmente en español (2016-2020, CC BY 3.0) y 240 de IA
+# sobre los mismos títulos (Claude Sonnet, GPT gpt-oss-20b, Gemini Flash y DeepSeek v4.1 Flash). Ver
+# calibracion/informe.md. La moraleja léxica y las frases largas no separaron aquí tampoco: quedan apagadas.
 [severidad]
-moraleja = "blanda"
-cierre_moraleja = "blanda"
-frases_largas = "blanda"
+moraleja = "apagada"
+cierre_moraleja = "apagada"
+frases_largas = "apagada"
 emojis = "blanda"
 
 [umbrales]
-dos_puntos = 4.0
-moraleja = 1.0
-tricolon = 1.5
-contraste = 0.8
-conectores = 5.0
-moldes = 0.0
+punto_y_coma = 1.59
+dos_puntos = 3.12
+tricolon = 9.15
+contraste = 1.07
+lexico_ia = 1.71
+conectores = 4.56
+cv_frase_minimo = 0.5
+cv_parrafo_minimo = 0.36
 citas_minimas = 0.0
-nombres_minimos = 4.0
+nombres_minimos = 48.22
+
+[senales]
+punto_y_coma_x1000 = [">", 1.59]
+dos_puntos_x1000 = [">", 3.12]
+tricolon_x1000 = [">", 9.15]
+contraste_x1000 = [">", 1.07]
+lexico_ia_x1000 = [">", 1.71]
+largo_medio_frase = [">", 25.1]
+cv_largo_frase = ["<", 0.5]
+cv_largo_parrafo = ["<", 0.36]
+nombres_propios_x1000 = ["<", 48.22]
+
+[calibracion]
+corte = 3
+ia = 0.979
+humanos = 0.036
+corpus = "250 posts humanos de divulgación y 240 de IA"

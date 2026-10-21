@@ -7,7 +7,7 @@ from pathlib import Path
 
 from . import __version__
 from .lector import leer
-from .reglas import SENALES, perfiles_disponibles, revisar
+from .reglas import perfiles_disponibles, revisar
 
 
 def imprimir(r, max_ejemplos=6):
@@ -24,9 +24,12 @@ def imprimir(r, max_ejemplos=6):
                 print(f"    · {u.extracto}")
             if len(h.ubicaciones) > max_ejemplos:
                 print(f"    · … y {len(h.ubicaciones) - max_ejemplos} más")
-    n = len(r.senales)
-    print(f"\nSeñales calibradas: {n} de {len(SENALES)}" + (f" ({', '.join(r.senales)})" if n else ""))
-    print("    En la calibración, 3 o más aparecieron en el 76% de los textos de IA y en el 5% de los humanos.")
+    if r.n_senales:
+        n, cal = len(r.senales), r.calibracion
+        print(f"\nSeñales calibradas: {n} de {r.n_senales}" + (f" ({', '.join(r.senales)})" if n else ""))
+        if cal:
+            print(f"    En la calibración, {cal['corte']} o más aparecieron en el {cal['ia']:.0%} de los textos de IA "
+                  f"y en el {cal['humanos']:.0%} de los humanos ({cal['corpus']}).")
     print("\nVeredicto:", "PASA las reglas duras" if r.pasa else "FALLA en reglas duras",
           "(revisa las señales con criterio, no son mandamientos)" if r.blandas else "")
 

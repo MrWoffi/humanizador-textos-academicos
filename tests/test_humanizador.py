@@ -139,7 +139,14 @@ def test_senales_calibradas():
                 "competencia, la regulación y el clima complicaban todo; además, el panorama se volvió integral, "
                 "robusto, crucial y fundamental para el crecimiento sostenido de la región entera.")
     r = revisar(bloques(sin_nada * 3), "academico")
-    assert {"Sin citas (Autor, año)", "Punto y coma", "Léxico de IA"} <= set(r.senales)
+    assert {"Sin citas (Autor, año)", "Léxico de IA"} <= set(r.senales)
+
+
+def test_senales_no_se_mezclan_entre_perfiles():
+    redes, academico = cargar_perfil("redes"), cargar_perfil("academico")
+    assert "citas_x1000" in academico["senales"] and "citas_x1000" not in redes["senales"]
+    assert cargar_perfil("estricto")["senales"] == academico["senales"]
+    assert cargar_perfil("narrativo")["senales"] == redes["senales"]
 
 
 def test_perfil_hereda_y_sobrescribe():

@@ -55,8 +55,8 @@ resaltado (rosa para reglas duras, amarillo para señales) y un comentario por h
 |---|---|---|
 | `academico` (defecto) | Informes, tesis, artículos | El punto y coma y la raya son correctos en español académico: solo se vigila su abuso |
 | `estricto` | Estilo personal sin concesiones | Cero punto y coma, cero rayas, cero comillas de énfasis, pocos dos puntos, todo como regla dura |
-| `redes` | Posts, guiones de reel, correos, propuestas | Topes más bajos de moraleja y tricolon. Exige nombres propios en vez de citas |
-| `narrativo` | Guiones con historia, relatos | Lo más estricto con la moraleja explícita |
+| `redes` | Posts, artículos de blog, guiones de reel, correos | Calibrado aparte, con textos de divulgación. Pide nombres propios en vez de citas |
+| `narrativo` | Guiones con historia, relatos | Usa las señales de `redes` y vuelve a encender la moraleja explícita. Sin calibrar |
 
 Un perfil es un `.toml` de dos tablas: `[severidad]` dice si cada regla es `dura`, `blanda` o `apagada`, y
 `[umbrales]` fija los topes. Para hacer el tuyo, hereda uno y cambia solo lo que quieras:
@@ -101,10 +101,10 @@ lugares casi el doble.
 
 | Señal | Qué cuenta |
 |---|---|
-| Moraleja | "esto demuestra que", "es decir", "en otras palabras", "la clave está", "por lo tanto"… Solo en `redes` y `narrativo`: la calibración mostró que en prosa académica no delata a la IA |
+| Moraleja | "esto demuestra que", "es decir", "en otras palabras", "la clave está", "por lo tanto"… Solo en `narrativo`: la calibración mostró que no delata a la IA ni en prosa académica ni en divulgación |
 | Cierre con moraleja | Párrafos cuya última frase repite lo ya dicho o anuncia la conclusión |
 | Ritmo uniforme | Frases y párrafos de largo parecido (coeficiente de variación bajo) |
-| Frases largas | Más de 40 palabras. Es legibilidad, no huella de IA: apagada en `academico` |
+| Frases largas | Más de 40 palabras. Es legibilidad, no huella de IA: apagada en `academico` y `redes` |
 | Tricolon | Enumeraciones de tres en serie, "X, Y y Z" |
 | Contraste | "No es X, es Y" |
 | Conectores | "Además", "Sin embargo", "Por otro lado"… por encima del tope |
@@ -117,26 +117,34 @@ describen relatos en inglés, no prosa académica en español.
 
 ## De dónde salen los umbrales
 
-Los umbrales del perfil académico están medidos, no puestos a ojo. Se compararon 298 introducciones de
-artículos de economía en español publicadas en SciELO entre 2015 y 2020, antes de los modelos de lenguaje, con
-190 introducciones escritas por Gemini Flash y DeepSeek v4.1 Flash sobre **los mismos títulos**. Cada umbral
-marca solo lo que un humano hace rara vez (su percentil 90, o el 10), así que cada regla se equivoca con
-cerca del 10% de los textos humanos.
+Los umbrales de los perfiles `academico` y `redes` están medidos, no puestos a ojo. Para cada uno se comparó un
+corpus de textos humanos escritos antes de los modelos de lenguaje con textos de IA escritos **sobre los mismos
+títulos** por cuatro modelos: Claude Sonnet, GPT (`gpt-oss-20b`, el modelo abierto de OpenAI), Gemini Flash y
+DeepSeek v4.1 Flash.
 
-Ocho métricas separan de verdad. Ninguna basta sola, pero juntas sí:
-
-| Señales activas (de 8) | Textos humanos | Textos de IA |
+| Perfil | Textos humanos | Textos de IA |
 |---|---|---|
-| 3 o más | 5.0% | 76.3% |
-| 4 o más | 1.0% | 50.5% |
+| `academico` | 298 introducciones de artículos de economía en SciELO, 2015-2020 | 390 |
+| `redes` | 250 posts de Global Voices escritos originalmente en español, 2016-2020 | 240 |
 
-Por eso cada reporte termina contando cuántas de las ocho se activaron. Las que más separan son la falta de
-citas (Autor, año), las rayas, los pocos nombres propios y el largo de frase parejo.
+Cada umbral marca solo lo que un humano hace rara vez (a lo sumo el 10% de los textos humanos). Ninguna señal basta
+sola, pero juntas sí:
 
-También se midió lo que **no** funciona, y se apagó: en prosa académica humana, "es decir" y "por lo tanto" son
-más frecuentes que en la de IA, y las frases largas son más humanas que artificiales. El detalle, los límites y
-los scripts para repetir la medición están en [`calibracion/`](calibracion/informe.md). Los perfiles `redes` y
-`narrativo` todavía no están calibrados.
+| Perfil | Con 3 o más señales: humanos | IA | Claude | GPT | Gemini | DeepSeek |
+|---|---|---|---|---|---|---|
+| `academico` | 2.3% | 72.1% | 78.0% | 63.0% | 66.7% | 87.5% |
+| `redes` | 3.6% | 97.9% | 96.7% | 98.3% | 100.0% | 96.7% |
+
+Por eso cada reporte termina contando cuántas señales se activaron. En prosa académica las que más separan son la
+falta de citas (Autor, año), las rayas, los pocos nombres propios y el largo de frase parejo. En divulgación, el largo
+de párrafo y de frase parejos, los pocos nombres propios, los dos puntos y el molde "no es X, es Y".
+
+También se midió lo que **no** funciona. La moraleja léxica ("es decir", "por lo tanto") no separa en ninguno de los
+dos corpus: en prosa académica los humanos la usan más. El punto y coma no delata a la IA en textos académicos, porque
+Claude y GPT lo usan menos que los humanos. Las frases largas son más humanas que artificiales. Todo eso quedó apagado.
+
+El detalle, los límites y los scripts para repetir la medición están en
+[`calibracion/informe.md`](calibracion/informe.md). El perfil `narrativo` todavía no está calibrado.
 
 ## Para ampliarlo
 

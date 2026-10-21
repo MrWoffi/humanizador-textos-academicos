@@ -3,6 +3,12 @@
 descripcion = "Guiones con historia y relatos"
 hereda = "redes"
 
+# Sin calibrar: no hay todavía un corpus de guiones con historia. Toma las señales de redes y vuelve a
+# encender la moraleja, que en StoryScope (ficción) es la marca más fuerte de la IA.
+[severidad]
+moraleja = "blanda"
+cierre_moraleja = "blanda"
+
 [umbrales]
 dos_puntos = 3.0
 moraleja = 0.5

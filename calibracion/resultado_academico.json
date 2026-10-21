@@ -1,0 +1,293 @@
+{
+  "corpus": "academico",
+  "n_humano": 298,
+  "n_ia": 390,
+  "metricas": {
+    "punto_y_coma_x1000": {
+      "mediana_humano": 1.49,
+      "mediana_ia": 0.73,
+      "auc": 0.523,
+      "op": ">",
+      "umbral": 6.41,
+      "separa": false,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.141
+    },
+    "rayas_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 3.72,
+      "auc": 0.777,
+      "op": ">",
+      "umbral": 0.0,
+      "separa": true,
+      "humanos_marcados": 0.07,
+      "ia_marcada": 0.603
+    },
+    "dos_puntos_x1000": {
+      "mediana_humano": 1.49,
+      "mediana_ia": 2.065,
+      "auc": 0.664,
+      "op": ">",
+      "umbral": 4.39,
+      "separa": true,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.164
+    },
+    "moraleja_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.365,
+      "op": "<",
+      "umbral": 0.0,
+      "separa": true,
+      "humanos_marcados": 0.0,
+      "ia_marcada": 0.0
+    },
+    "tricolon_x1000": {
+      "mediana_humano": 2.93,
+      "mediana_ia": 5.25,
+      "auc": 0.708,
+      "op": ">",
+      "umbral": 7.45,
+      "separa": true,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.356
+    },
+    "contraste_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.612,
+      "op": ">",
+      "umbral": 1.4,
+      "separa": true,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.308
+    },
+    "conectores_x1000": {
+      "mediana_humano": 3.04,
+      "mediana_ia": 3.255,
+      "auc": 0.496,
+      "op": "<",
+      "umbral": 1.46,
+      "separa": false,
+      "humanos_marcados": 0.195,
+      "ia_marcada": 0.159
+    },
+    "lexico_ia_x1000": {
+      "mediana_humano": 1.54,
+      "mediana_ia": 3.68,
+      "auc": 0.7,
+      "op": ">",
+      "umbral": 4.9,
+      "separa": true,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.328
+    },
+    "moldes_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.509,
+      "op": ">",
+      "umbral": 0.0,
+      "separa": false,
+      "humanos_marcados": 0.023,
+      "ia_marcada": 0.041
+    },
+    "largo_medio_frase": {
+      "mediana_humano": 36.1,
+      "mediana_ia": 36.65,
+      "auc": 0.485,
+      "op": "<",
+      "umbral": 29.7,
+      "separa": false,
+      "humanos_marcados": 0.098,
+      "ia_marcada": 0.164
+    },
+    "cv_largo_frase": {
+      "mediana_humano": 0.43,
+      "mediana_ia": 0.34,
+      "auc": 0.237,
+      "op": "<",
+      "umbral": 0.33,
+      "separa": true,
+      "humanos_marcados": 0.092,
+      "ia_marcada": 0.426
+    },
+    "citas_x1000": {
+      "mediana_humano": 4.795,
+      "mediana_ia": 0.0,
+      "auc": 0.146,
+      "op": "<",
+      "umbral": 1.45,
+      "separa": true,
+      "humanos_marcados": 0.195,
+      "ia_marcada": 0.828
+    },
+    "nombres_propios_x1000": {
+      "mediana_humano": 29.755,
+      "mediana_ia": 15.02,
+      "auc": 0.223,
+      "op": "<",
+      "umbral": 12.17,
+      "separa": true,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.413
+    },
+    "relleno_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.485,
+      "op": "<",
+      "umbral": 0.0,
+      "separa": false,
+      "humanos_marcados": 0.0,
+      "ia_marcada": 0.0
+    },
+    "comillas_enfasis_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.454,
+      "op": "<",
+      "umbral": 0.0,
+      "separa": false,
+      "humanos_marcados": 0.0,
+      "ia_marcada": 0.0
+    },
+    "emojis_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.5,
+      "op": ">",
+      "umbral": 0.0,
+      "separa": false,
+      "humanos_marcados": 0.0,
+      "ia_marcada": 0.0
+    },
+    "frases_largas_x1000": {
+      "mediana_humano": 9.221,
+      "mediana_ia": 9.881,
+      "auc": 0.523,
+      "op": ">",
+      "umbral": 12.78,
+      "separa": false,
+      "humanos_marcados": 0.097,
+      "ia_marcada": 0.203
+    },
+    "cierre_moraleja_x1000": {
+      "mediana_humano": 0.0,
+      "mediana_ia": 0.0,
+      "auc": 0.462,
+      "op": "<",
+      "umbral": 0.0,
+      "separa": false,
+      "humanos_marcados": 0.0,
+      "ia_marcada": 0.0
+    }
+  },
+  "senales": {
+    "rayas_x1000": [
+      ">",
+      0.0
+    ],
+    "tricolon_x1000": [
+      ">",
+      7.45
+    ],
+    "contraste_x1000": [
+      ">",
+      1.4
+    ],
+    "lexico_ia_x1000": [
+      ">",
+      4.9
+    ],
+    "cv_largo_frase": [
+      "<",
+      0.33
+    ],
+    "citas_x1000": [
+      "<",
+      1.45
+    ],
+    "nombres_propios_x1000": [
+      "<",
+      12.17
+    ]
+  },
+  "combinacion": {
+    "1": {
+      "humanos": 0.557,
+      "ia": 0.99
+    },
+    "2": {
+      "humanos": 0.161,
+      "ia": 0.933
+    },
+    "3": {
+      "humanos": 0.023,
+      "ia": 0.721
+    },
+    "4": {
+      "humanos": 0.003,
+      "ia": 0.413
+    },
+    "5": {
+      "humanos": 0.0,
+      "ia": 0.156
+    }
+  },
+  "por_modelo": {
+    "claude-sonnet": {
+      "n": 100,
+      "2+_senales": 0.98,
+      "3+_senales": 0.78,
+      "4+_senales": 0.49,
+      "rayas_x1000": 7.215,
+      "tricolon_x1000": 7.255,
+      "contraste_x1000": 0.0,
+      "lexico_ia_x1000": 1.805,
+      "cv_largo_frase": 0.37,
+      "citas_x1000": 0.0,
+      "nombres_propios_x1000": 13.46
+    },
+    "deepseek-v4.1-flash": {
+      "n": 64,
+      "2+_senales": 0.984,
+      "3+_senales": 0.875,
+      "4+_senales": 0.594,
+      "rayas_x1000": 3.7,
+      "tricolon_x1000": 16.3,
+      "contraste_x1000": 0.0,
+      "lexico_ia_x1000": 2.065,
+      "cv_largo_frase": 0.37,
+      "citas_x1000": 0.0,
+      "nombres_propios_x1000": 10.15
+    },
+    "gemini-flash-latest": {
+      "n": 126,
+      "2+_senales": 0.929,
+      "3+_senales": 0.667,
+      "4+_senales": 0.333,
+      "rayas_x1000": 4.03,
+      "tricolon_x1000": 4.01,
+      "contraste_x1000": 0.0,
+      "lexico_ia_x1000": 4.185,
+      "cv_largo_frase": 0.36,
+      "citas_x1000": 0.0,
+      "nombres_propios_x1000": 16.515
+    },
+    "gpt-oss-20b": {
+      "n": 100,
+      "2+_senales": 0.86,
+      "3+_senales": 0.63,
+      "4+_senales": 0.32,
+      "rayas_x1000": 0.0,
+      "tricolon_x1000": 3.88,
+      "contraste_x1000": 0.0,
+      "lexico_ia_x1000": 5.14,
+      "cv_largo_frase": 0.275,
+      "citas_x1000": 0.0,
+      "nombres_propios_x1000": 17.055
+    }
+  }
+}

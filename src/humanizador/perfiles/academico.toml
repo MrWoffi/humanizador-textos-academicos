@@ -26,15 +26,15 @@ especificidad = "blanda"
 emojis = "dura"
 
 # topes por cada 1,000 palabras de prosa, salvo donde se indica.
-# Calibrados con 298 introducciones humanas de SciELO (2015-2020) y 190 de IA sobre los mismos títulos: cada
-# tope es el percentil 90 humano (o el 10, si la IA puntúa más bajo), así que marca solo lo que un humano rara
-# vez hace. Ver calibracion/informe.md
+# Calibrados con 298 introducciones humanas de SciELO (2015-2020) y 390 de IA sobre los mismos títulos (Claude
+# Sonnet, GPT gpt-oss-20b, Gemini Flash y DeepSeek v4.1 Flash). Cada tope es el umbral más exigente que marca a lo
+# sumo al 10% de los humanos. Ver calibracion/informe.md
 [umbrales]
-punto_y_coma = 6.3
+punto_y_coma = 6.41
 rayas = 0.0
-dos_puntos = 4.4
+dos_puntos = 4.39
 moraleja = 2.0
-tricolon = 7.4
+tricolon = 7.45
 contraste = 1.4
 conectores = 6.3
 lexico_ia = 4.9
@@ -43,5 +43,22 @@ frase_larga_palabras = 40          # palabras por frase
 cv_frase_minimo = 0.33             # coeficiente de variación del largo de frase
 cv_parrafo_minimo = 0.25
 arranque_repetido_fraccion = 0.03  # misma apertura en más de este porcentaje de frases
-citas_minimas = 1.0                # citas (Autor, año) por mil palabras
-nombres_minimos = 12.5             # nombres propios por mil palabras
+citas_minimas = 1.45                # citas (Autor, año) por mil palabras
+nombres_minimos = 12.17            # nombres propios por mil palabras
+
+# Las métricas que separaron humano de IA en la calibración, con su umbral: [operador, valor].
+# El reporte cuenta cuántas se activan.
+[senales]
+rayas_x1000 = [">", 0.0]
+tricolon_x1000 = [">", 7.45]
+contraste_x1000 = [">", 1.4]
+lexico_ia_x1000 = [">", 4.9]
+cv_largo_frase = ["<", 0.33]
+citas_x1000 = ["<", 1.45]
+nombres_propios_x1000 = ["<", 12.17]
+
+[calibracion]
+corte = 3
+ia = 0.721
+humanos = 0.023
+corpus = "298 textos académicos humanos y 390 de IA"
