@@ -1,0 +1,19 @@
+# Perfil para redes y textos comerciales: posts, carruseles, guiones de reel, correos, propuestas.
+descripcion = "Redes y textos comerciales: posts, guiones de reel, correos"
+hereda = "academico"
+
+[severidad]
+moraleja = "blanda"
+cierre_moraleja = "blanda"
+frases_largas = "blanda"
+emojis = "blanda"
+
+[umbrales]
+dos_puntos = 4.0
+moraleja = 1.0
+tricolon = 1.5
+contraste = 0.8
+conectores = 5.0
+moldes = 0.0
+citas_minimas = 0.0
+nombres_minimos = 4.0

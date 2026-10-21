@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+.pytest_cache/
+*(revisado).docx
+*(revisión).html
+graphify-out/

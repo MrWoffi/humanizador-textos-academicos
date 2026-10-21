@@ -1,0 +1,30 @@
+[project]
+name = "humanizador-textos-academicos"
+version = "0.1.0"
+description = "Mide la huella de IA en textos en español: punto y coma, dos puntos, relleno, sobre-explicación y ritmo. Mide, no reescribe."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Rodrigo Ferrer" }]
+keywords = ["español", "redacción", "ia", "humanizar", "escritura académica", "linter"]
+dependencies = ["python-docx>=1.2"]
+
+[project.urls]
+Repository = "https://github.com/MrWoffi/humanizador-textos-academicos"
+
+[project.scripts]
+humanizador = "humanizador.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/humanizador"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

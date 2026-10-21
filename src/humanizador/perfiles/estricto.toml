@@ -1,0 +1,15 @@
+# Perfil estricto: reglas de estilo personales que van más allá de la norma.
+# Prohíbe el punto y coma, las rayas, las comillas de énfasis y el exceso de dos puntos.
+descripcion = "Estilo personal estricto: cero punto y coma, cero rayas, pocos dos puntos"
+hereda = "academico"
+
+[severidad]
+frases_largas = "blanda"
+punto_y_coma = "dura"
+rayas = "dura"
+comillas_enfasis = "dura"
+dos_puntos = "dura"
+
+[umbrales]
+punto_y_coma = 0.0
+rayas = 0.0

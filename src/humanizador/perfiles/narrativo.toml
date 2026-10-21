@@ -1,0 +1,10 @@
+# Perfil narrativo: guiones con historia, relatos, minicomerciales.
+# Aquí StoryScope aplica de lleno: la moraleja explícita es la marca más fuerte de la IA.
+descripcion = "Guiones con historia y relatos"
+hereda = "redes"
+
+[umbrales]
+dos_puntos = 3.0
+moraleja = 0.5
+contraste = 0.5
+conectores = 4.0

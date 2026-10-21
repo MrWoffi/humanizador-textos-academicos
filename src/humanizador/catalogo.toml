@@ -1,0 +1,86 @@
+# Catálogo de patrones. Cada entrada es una expresión regular (sin distinguir mayúsculas).
+# Para agregar un tic, súmalo a la lista que corresponda y corre las pruebas.
+
+# Relleno de manual: frases que no dicen nada y que los modelos repiten.
+relleno = [
+  'es importante (destacar|señalar|mencionar|resaltar|subrayar|recordar)',
+  'cabe (señalar|destacar|mencionar|resaltar|recordar)',
+  'vale la pena (mencionar|destacar|señalar)',
+  'en el mundo (actual|de hoy|moderno)',
+  'en la era (digital|actual|moderna|de la)',
+  'juega un (papel|rol) (crucial|fundamental|clave|importante|esencial|vital)',
+  'desempeña un (papel|rol) (crucial|fundamental|clave|esencial|vital)',
+  'sin lugar a dudas',
+  'no es ning[uú]n secreto',
+  '\bes crucial\b',
+  '\bun aspecto clave\b',
+  '\b(adentrarnos|sumergirnos|profundizaremos|exploraremos)\b',
+  '\btapiz\b',
+  '\ben conclusi[oó]n\b',
+  '\bpanorama (actual|general)\b',
+  '\bpiedra angular\b',
+  '\bpoderosa herramienta\b',
+  'espero que (esto|te) (sea|ayude|resulte)',
+  '\bdesbloquear\b',
+  '\bpotenciar al m[aá]ximo\b',
+  '\bun mundo en constante (cambio|evoluci[oó]n)\b',
+  '\bcada vez m[aá]s (importante|relevante|necesario)\b',
+]
+
+# Sobre-explicación (StoryScope): decirle al lector qué debe concluir.
+moraleja = [
+  '\besto (demuestra|confirma|muestra|significa|implica|evidencia|revela|sugiere|pone de manifiesto) que\b',
+  '\blo que (demuestra|significa|implica|confirma|evidencia|revela|pone de manifiesto)\b',
+  '\ben otras palabras\b',
+  '\bdicho de otro modo\b',
+  '\bes decir\b',
+  '\ben definitiva\b',
+  '\ben resumen\b',
+  '\bla lecci[oó]n\b',
+  '\bla clave (est[aá]|es)\b',
+  '\bel mensaje (es|est[aá])\b',
+  '\bqueda claro que\b',
+  '\bno cabe duda\b',
+  '\ben suma\b',
+  '\bpor (lo )?tanto\b',
+]
+
+# Molde de contraste: "no es X, es Y".
+contraste = [
+  '\bno es (solo |solamente |simplemente )?[^.,;]{1,40}, (sino|es)\b',
+  '\bno [^.,;]{1,30}, sino\b',
+  '\bno solo\b[^.]{1,60}\bsino\b',
+]
+
+# Conectores de manual. Solo se marcan si su densidad pasa el tope del perfil.
+conectores = [
+  'además', 'sin embargo', 'por otro lado', 'en este sentido', 'asimismo', 'por su parte',
+  'de esta manera', 'de este modo', 'así que', 'en cambio', 'no obstante', 'por consiguiente',
+]
+
+# Léxico que los modelos usan de más en español. Densidad, no prohibición: muchas son palabras normales.
+lexico_ia = [
+  '\bfomentar\b', '\bpotenciar\b', '\babordar\b', '\bintegral\b', '\brobust[oa]s?\b', '\bcrucial(es)?\b',
+  '\bsinergias?\b', '\bhol[ií]stic[oa]s?\b', '\binnovador(a|es|as)?\b', '\btransformador(a|es|as)?\b',
+  '\bempoderar\b', '\ben el [aá]mbito de\b', '\ben el marco de\b', '\ba lo largo de\b',
+  '\bfundamental(es)?\b', '\besencial(es)?\b', '\bclave\b', '\bmatiz(ado|ados|es)?\b',
+  '\bdin[aá]mic[oa]s?\b', '\bequilibrio\b', '\bnavegar\b', '\bimpulsar\b',
+]
+
+# Moldes retóricos de redes y de asistente.
+moldes = [
+  '¿(el|la|los|las) (resultado|clave|respuesta|verdad|secreto|problema|truco)s?\?',
+  '^imagina\b',
+  '\bla verdad es que\b',
+  '\baqu[ií] est[aá] (la cosa|el truco|el secreto)\b',
+  '\bspoiler\b',
+  '\bsin rodeos\b',
+  '\bno es magia\b',
+  '\by no,\s',
+  '\bclaro y conciso\b',
+  '\beficiente y eficaz\b',
+  '\bpr[aá]ctic[oa] y accesible\b',
+  '\bsimple pero (poderos[oa]|efectiv[oa])\b',
+  '\bde manera (efectiva|eficiente|significativa)\b',
+  '\bde forma (efectiva|eficiente|significativa)\b',
+]

@@ -1,0 +1,47 @@
+# Perfil por defecto: prosa académica en español (informes, tesis, artículos).
+# El punto y coma y la raya son correctos en español académico: aquí solo se vigila su abuso.
+descripcion = "Prosa académica en español: informes, tesis, artículos"
+
+# severidad: "dura" (hace fallar la revisión), "blanda" (se marca para revisar) o "apagada"
+[severidad]
+punto_y_coma = "blanda"
+rayas = "blanda"
+relleno = "dura"
+comillas_enfasis = "blanda"
+dos_puntos = "blanda"
+# En prosa académica humana "es decir" o "por lo tanto" son más frecuentes que en la de IA (calibración):
+# la moraleja léxica no es señal aquí. Las frases largas tampoco: los humanos las escriben más largas.
+moraleja = "apagada"
+cierre_moraleja = "apagada"
+frases_largas = "apagada"
+ritmo_uniforme = "blanda"
+parrafos_clonados = "blanda"
+tricolon = "blanda"
+contraste = "blanda"
+conectores = "blanda"
+arranques_repetidos = "blanda"
+lexico_ia = "blanda"
+moldes = "blanda"
+especificidad = "blanda"
+emojis = "dura"
+
+# topes por cada 1,000 palabras de prosa, salvo donde se indica.
+# Calibrados con 298 introducciones humanas de SciELO (2015-2020) y 190 de IA sobre los mismos títulos: cada
+# tope es el percentil 90 humano (o el 10, si la IA puntúa más bajo), así que marca solo lo que un humano rara
+# vez hace. Ver calibracion/informe.md
+[umbrales]
+punto_y_coma = 6.3
+rayas = 0.0
+dos_puntos = 4.4
+moraleja = 2.0
+tricolon = 7.4
+contraste = 1.4
+conectores = 6.3
+lexico_ia = 4.9
+moldes = 0.5
+frase_larga_palabras = 40          # palabras por frase
+cv_frase_minimo = 0.33             # coeficiente de variación del largo de frase
+cv_parrafo_minimo = 0.25
+arranque_repetido_fraccion = 0.03  # misma apertura en más de este porcentaje de frases
+citas_minimas = 1.0                # citas (Autor, año) por mil palabras
+nombres_minimos = 12.5             # nombres propios por mil palabras
