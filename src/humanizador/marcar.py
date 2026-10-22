@@ -13,15 +13,34 @@ from docx.enum.text import WD_COLOR_INDEX
 COLOR = {"dura": WD_COLOR_INDEX.PINK, "blanda": WD_COLOR_INDEX.YELLOW}
 
 
-def _tramos(resultado):
+def _visible(texto, inicio, fin):
+    """Un hallazgo de un solo signo (":" o ";") se extiende a la palabra de antes y a la de después, para que el
+    resaltado se vea."""
+    if fin - inicio > 2:
+        return inicio, fin
+    while inicio > 0 and texto[inicio - 1] == " ":
+        inicio -= 1
+    while inicio > 0 and not texto[inicio - 1].isspace():
+        inicio -= 1
+    while fin < len(texto) and texto[fin] == " ":
+        fin += 1
+    while fin < len(texto) and not texto[fin].isspace() and texto[fin] not in ".,;:":
+        fin += 1
+    return inicio, fin
+
+
+def _tramos(resultado, textos):
     """Agrupa las ubicaciones por párrafo, sin solapes. Si dos se pisan, gana la dura."""
     por_parrafo = {}
     for h in sorted(resultado.hallazgos, key=lambda h: h.severidad != "dura"):
         for u in h.ubicaciones:
-            lista = por_parrafo.setdefault(u.ref, [])
-            if any(u.inicio < z and a < u.fin for a, z, _ in lista):
+            if u.ref not in textos:
                 continue
-            lista.append((u.inicio, u.fin, h))
+            ini, fin = _visible(textos[u.ref], u.inicio, u.fin)
+            lista = por_parrafo.setdefault(u.ref, [])
+            if any(ini < z and a < fin for a, z, _ in lista):
+                continue
+            lista.append((ini, fin, h))
     return por_parrafo
 
 
@@ -66,7 +85,8 @@ def marcar_docx(origen, destino, resultado, autor="Humanizador"):
     doc = docx.Document(str(origen))
     parrafos = doc.paragraphs
     n = 0
-    for ref, tramos in _tramos(resultado).items():
+    textos = {i: p.text for i, p in enumerate(parrafos)}
+    for ref, tramos in _tramos(resultado, textos).items():
         p = parrafos[ref]
         if "".join(r.text for r in p.runs) != p.text:
             continue  # párrafo con campos o hipervínculos: no se toca para no romperlo
@@ -85,7 +105,7 @@ def marcar_docx(origen, destino, resultado, autor="Humanizador"):
 
 
 def reporte_html(bloques, resultado, titulo="Revisión de redacción"):
-    tramos = _tramos(resultado)
+    tramos = _tramos(resultado, {b.ref: b.texto for b in bloques})
     cuerpo = []
     for b in bloques:
         t, partes, pos = b.texto, [], 0
