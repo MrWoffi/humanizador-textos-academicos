@@ -258,6 +258,10 @@ def revisar(bloques, perfil="academico"):
                      len(P.get("senales", {})), P.get("calibracion", {}))
 
 
+# La calibración solo usó textos de al menos este largo. Por debajo, las métricas por mil palabras y las de ritmo
+# salen con demasiado ruido para comparar con los umbrales, y el conteo de señales no se reporta.
+MINIMO_CALIBRADO = 200
+
 NOMBRE_SENAL = {
     "citas_x1000": "Sin citas (Autor, año)",
     "nombres_propios_x1000": "Pocos nombres propios",
@@ -316,8 +320,15 @@ class Resultado:
     def pasa(self):
         return not self.duras
 
+    @property
+    def texto_corto(self):
+        return self.metricas.get("palabras", 0) < MINIMO_CALIBRADO
+
     def a_dict(self):
-        return {"perfil": self.perfil, "pasa": self.pasa, "metricas": self.metricas, "senales_calibradas": self.senales,
+        return {"perfil": self.perfil, "pasa": self.pasa, "metricas": self.metricas,
+                "senales_calibradas": None if self.texto_corto else self.senales,
+                "aviso": (f"Texto de menos de {MINIMO_CALIBRADO} palabras: las señales no están calibradas para ese "
+                          "largo" if self.texto_corto else None),
                 "hallazgos": [{"regla": h.regla, "descripcion": h.descripcion, "severidad": h.severidad,
                                "mensaje": h.mensaje, "como_corregir": h.como_corregir,
                                "ubicaciones": [u.__dict__ for u in h.ubicaciones]} for h in self.hallazgos]}

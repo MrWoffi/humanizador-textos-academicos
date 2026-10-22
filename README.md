@@ -45,6 +45,10 @@ humanizador informe.docx --perfil mi_estilo.toml
 
 Sale con código 1 si alguna regla dura falla, así que sirve en un flujo automático.
 
+**Textos cortos.** La calibración usó textos de 200 palabras o más. Con un texto más corto, como un caption, el
+reporte sigue mostrando los hallazgos pero no cuenta las señales calibradas, porque con tan pocas palabras las
+métricas tienen demasiado ruido para compararlas con los umbrales.
+
 En un Word solo revisa la prosa. Salta títulos, leyendas de figuras y tablas, notas, ecuaciones y todo
 lo que viene después de "Referencias". El marcado no cambia una sola letra del documento: solo agrega
 resaltado (rosa para reglas duras, amarillo para señales) y un comentario por hallazgo.

@@ -1,6 +1,6 @@
 [project]
 name = "humanizador-textos-academicos"
-version = "0.2.0"
+version = "0.2.1"
 description = "Mide la huella de IA en textos en español: punto y coma, dos puntos, relleno, sobre-explicación y ritmo. Mide, no reescribe."
 readme = "README.md"
 requires-python = ">=3.11"

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from . import __version__
 from .lector import leer
-from .reglas import perfiles_disponibles, revisar
+from .reglas import MINIMO_CALIBRADO, perfiles_disponibles, revisar
 
 
 def imprimir(r, max_ejemplos=6):
@@ -24,7 +24,11 @@ def imprimir(r, max_ejemplos=6):
                 print(f"    · {u.extracto}")
             if len(h.ubicaciones) > max_ejemplos:
                 print(f"    · … y {len(h.ubicaciones) - max_ejemplos} más")
-    if r.n_senales:
+    if r.n_senales and r.texto_corto:
+        print(f"\nSeñales calibradas: no se cuentan. El texto tiene {r.metricas['palabras']} palabras y la calibración "
+              f"usó textos de {MINIMO_CALIBRADO} o más.")
+        print("    Con textos tan cortos las métricas tienen demasiado ruido. Lee los hallazgos uno por uno, con criterio.")
+    elif r.n_senales:
         n, cal = len(r.senales), r.calibracion
         print(f"\nSeñales calibradas: {n} de {r.n_senales}" + (f" ({', '.join(r.senales)})" if n else ""))
         if cal:

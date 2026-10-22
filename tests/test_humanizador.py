@@ -149,6 +149,23 @@ def test_senales_no_se_mezclan_entre_perfiles():
     assert cargar_perfil("narrativo")["senales"] == redes["senales"]
 
 
+def test_texto_corto_no_cuenta_senales(tmp_path, capsys):
+    corto = tmp_path / "caption.txt"
+    corto.write_text("Hoy lanzamos algo nuevo: un sistema que responde a tus clientes en segundos, sin esperas y sin "
+                     "excusas. No es magia, es método. Escríbenos y te mostramos cómo funciona en tu negocio.",
+                     encoding="utf-8")
+    r = revisar(leer(corto), "redes")
+    assert r.texto_corto and r.a_dict()["senales_calibradas"] is None
+    main([str(corto), "--perfil", "redes"])
+    salida = capsys.readouterr().out
+    assert "no se cuentan" in salida and "de 9" not in salida
+
+
+def test_texto_largo_si_cuenta_senales():
+    r = revisar(leer(CASOS / "marti_nuestra_america.md"), "academico")
+    assert not r.texto_corto and r.a_dict()["senales_calibradas"] is not None
+
+
 def test_perfil_hereda_y_sobrescribe():
     p = cargar_perfil("estricto")
     assert p["severidad"]["punto_y_coma"] == "dura"
